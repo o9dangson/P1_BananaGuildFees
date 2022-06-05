@@ -1,0 +1,71 @@
+
+Home '/'
+>>Login.html
+    >> Login(btn)   > (account_ctrl)        >   Success: redirect: User '/account/<user>'
+                                            >   Failed:  redirect: Home '/'
+    >> Register(btn)> (registration_ctrl)   >   redirect: Register '/registration'
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Register '/registration'
+>>register.html
+    SKIP THIS FOR NOW
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+User '/account/<user>' (get_account_page)
+get_account_page >(user_role_dao) >  verify if Adventurer or Guild_Master > Store in session: user_id, is_Guild_Master
+
+if Adventurer:
+>>user.html
+    >> Create new request (btn)    >  (request_ctrl) >  redirect: '/request/creation'
+
+    >> (account_ctrl) >> (req_table_dao) >>[Select * from request_table where user_id = 'user']
+    >> Ongoing request (grid)
+        >> list of requests where status == 'Pending'
+        >> Cancel Request (btn) >> (request_ctrl) >  (req_table_dao) > delete request from req_table_dao
+                                                                > redirect User '/account/<user>'
+        >> Update Request (btn) (optional) >> script >> add div with stuff to update request 
+                                >> (req_table_dao) > update database > redirect User '/account/<user>'
+    >> Previous request (grid)
+        >> list of requests where status == 'Accepted' or 'Rejected'
+    
+
+If Guild_Master:
+>> same as user but (if-block/Navbar will show option for managing Requests)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Manage_Request '/account/<user>/manage'
+get_manage_page() > (req_table_dao) > get all requests from table as list_of_req
+
+>>manage.html
+    >> Ongoing request (grid)
+        >>list of all requests that are 'Pending'
+        >>Accept/Reject (btn)   >> (req_table_dao) > update database > redirect Manage_Request '/account/<user>/manage'
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Navbar
+Home
+Manage Requests
+Log Out
+================================================================================
+
+To do:
+-login.html as its own. Every other html page uses base.html (Navbar)
+-css cleanup
+-navbar for menu on user page
+-async update db for accepted/rejected while javascript updates html page
+
+
+CODE:
+from flask import session
+import secrets
+
+app.secret_key = secrets.token_hex()
+
+Creation: session['user_id'] = user_login.user_id
+session.pop('user_id', None)
+
+access: session['user_id']
+
+
+{{ for x in list_req }}
+<div>Entry {{request_id}}</div>
+<but
+{{ endblock }}

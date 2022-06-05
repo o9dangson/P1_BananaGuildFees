@@ -4,25 +4,6 @@ body, html {
     background-color: lightblue;
 }
 
-.content {
-    margin: 0 auto;
-    width: 400px;
-}
-
-.leftcolumn {
-    float: left;
-    width: 75%;
-}
-
-.rightcolumn {
-    float: right;
-    width: 25%;
-    padding-left: 20px;
-}
-
-table, td, th {
-    border: 1px solid #aaa;
-}
 
 table {
     border-collapse: collapse;
@@ -36,10 +17,6 @@ th {
 td {
     text-align: center;
     padding: 5px;
-}
-
-.form {
-    margin-top: 20px;
 }
 
 #username #password {
