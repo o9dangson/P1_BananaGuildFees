@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 
 
+
 class App:
     app = Flask(__name__)
 
@@ -23,3 +24,4 @@ class App:
 
 if __name__ == '__main__':
     App.app.run(debug=True)
+   
