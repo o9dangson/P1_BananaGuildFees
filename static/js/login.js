@@ -16,3 +16,11 @@
       }, false)
     })
   })()
+
+// eventlistener to login button
+
+// function for login
+//        verify constraints, and fetch
+//        otherwise fetch create div or something with error message
+//        append in the case of a failure (temporaily appended)
+

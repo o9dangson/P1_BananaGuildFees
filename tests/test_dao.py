@@ -5,6 +5,7 @@ from database.request_dao import *
 from database.user_info_dao import select_user_info_by_user_id
 
 #Requests
+# TC_08
 def test_select_req_dao():
     list_of_req = select_all_req_by_user_id(1)
     assert list_of_req is not None
@@ -19,6 +20,7 @@ def test_select_req_dao():
     #    print(f"{req.req_id}\t{req.user_id}\t{req.amount}\t{req.desc}\t{req.status}")
     #assert True == False
 
+# TC_05
 @pytest.mark.parametrize("test", [
     {'u_id': 1, 'amt': 250, 'desc': 'Default_desc', 'status':'Accepted'},
     {'u_id': 2, 'amt': 300, 'desc': 'Def_man_desc', 'status': 'Rejected'}
@@ -32,6 +34,7 @@ def test_insert_update_delete_req_dao(test):
     assert del_qry == True
 
 #Users
+# TC_01
 @pytest.mark.parametrize("test, expected", [
     (['employee', 'Password123'], 1), (['yo', 'thisisapassword'], 0), (['ManaGER', 'P1223'], 0)
 ])
