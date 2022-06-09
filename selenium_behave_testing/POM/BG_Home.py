@@ -14,7 +14,7 @@ class BG_Home:
         return self.driver.find_element(By.ID, "inputPassword")
 
     def get_login_btn(self):
-        return self.driver.find_element(By.ID, "login_btn")
+        return self.driver.find_element(By.ID, "login-btn")
 
     # def register_btn(self):
     #    pass

@@ -2,8 +2,16 @@ body, html {
     margin: 0;
     font-family: sans-serif;
     background-color: lightblue;
+    font-family: 'Merienda', cursive;
+    height: 100%;
 }
 
+.bg {
+    background-image: url("../images/guild.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 table {
     border-collapse: collapse;
@@ -21,4 +29,22 @@ td {
 
 #username #password {
     width: 70%;
+}
+
+.content-home {
+    color: white;
+    text-shadow: 2px 2px #525252;
+    padding-top: 8%;
+}
+
+.input-text{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-warning {
+    color: red;
+    font-size: 1.5em;
+    text-shadow: black;
+    text-align: center;
 }

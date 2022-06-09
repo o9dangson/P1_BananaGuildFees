@@ -1,21 +1,29 @@
 from flask import Flask, render_template, request, redirect, url_for
 from service.logger_service import setup_logger_obj
+from controller.home_controller import get_homepage, get_homepage_err
 from controller.account_controller import get_account_page
+import secrets
 
 
 class App:
     app = Flask(__name__)
+    app.secret_key = secrets.token_hex()
 
     @app.route('/', methods=['GET'])
     def home():
-        return render_template('index.html')
+        return get_homepage()
+
+    @app.route('/error', methods=['GET'])
+    def home_error():
+        return get_homepage_err()
 
     @app.route('/account', methods=['GET', 'POST'])
     def account():
         if request.method=='POST':
+            
             return get_account_page(request.form)
-        else:
-            redirect(url_for('home'))
+        elif request.method=='GET':
+            return redirect(url_for('home'))
 
     #@app.route('/register', methods=['GET'])
     #def register():
