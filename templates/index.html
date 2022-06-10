@@ -11,24 +11,11 @@
     <h1 class="h-100 d-flex align-items-center justify-content-center">Banana Guild Woes</h1>
     <h4 class="h-100 mb-5 d-flex align-items-center justify-content-center">Welcome Adventurers! Input your credentials below!</h4>
 
-    <!-- <div class="form">
-        <form action="/" method="GET">
-            <label for="username">Username</label>
-            <br>
-            <input type="text" name="username" id="username">
-            <br>
-            <label for="password">Password</label>
-            <br>
-            <input type="password" name="password" id="password">
-            <br>
-            <br>
-            <input type="submit" value="Login">
-        </form> -->
         <div class="h-100 m-3 d-flex align-items-center justify-content-center">
-            <form class="row g-3 needs-validation" id="form_home" novalidate>
+            <form class="row g-3 needs-validation" action="/account" method="POST" id="form_home" novalidate>
                 {% if err == True %}
                 <div class="row mb-3 login-warning">
-                    <p>Make sure your username and password is 1 to 30 letters long!</p>
+                    <p id="text-warning">User doesn't exist!</p>
                 </div>
                 {% endif %}
                 <div class="row mb-3" id="info-above">

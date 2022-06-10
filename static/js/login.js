@@ -32,28 +32,9 @@ sign_in_btn.addEventListener("click", read_login)
 
 function read_login(){
   let valid = check_input(user_input.value, pass_input.value)
-  if (valid) {
-    let form_element = document.querySelector("#form_home")
-    send_request(user_input.value, pass_input.value)
-    let response_body = handle_request(form_element)
-    if(!response_body.ok){
-      add_err_msg("User does not exist.")
-    }
-  }
-  else {
+  if (!valid) {
     add_err_msg("Make sure your username and password is 1 to 30 letters long!")
   }
-}
-
-async function handle_request(form_element){
-  const data = new URLSearchParams();
-  for (const pair of new FormData(form_element)){
-    data.append(pair[0], pair[1]);
-  }
-  return await fetch('/account', {
-    method: "POST",
-    body: data,
-  })
 }
 
 function add_err_msg(err_msg){
@@ -65,6 +46,7 @@ function add_err_msg(err_msg){
   infoDiv = document.createElement("div")
   infoDiv.setAttribute("class", "row mb-3 login-warning")
   para = document.createElement("p")
+  para.setAttribute("id", "text-warning")
   para.innerText = err_msg
   infoDiv.append(para)
   below_element.prepend(infoDiv)

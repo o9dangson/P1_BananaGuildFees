@@ -16,5 +16,8 @@ class BG_Home:
     def get_login_btn(self):
         return self.driver.find_element(By.ID, "login-btn")
 
+    def get_err_msg(self):
+        return self.driver.find_element(By.ID,"text-warning")
+
     # def register_btn(self):
     #    pass
