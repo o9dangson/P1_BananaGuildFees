@@ -1,4 +1,0 @@
-LOGGING
-
-GET	Thu Jun  9 19:47:12 2022	/	render_template('index.html')
-GET	Thu Jun  9 19:47:15 2022	/	render_template('index.html')
