@@ -8,8 +8,9 @@ async function get_all_pending_requests(){
             const message = `Couldn't obtain requests! An error occured: ${res.status}`
             throw message
         }
-        console.log("req "+ pReqs)
-        return pReqs
+        console.log(JSON.stringify(pReqs))
+        // call populate page from here
+        // populate_page(JSON.stringify(pReqs))
     }
     catch(err) {
         console.log(err)
@@ -39,13 +40,10 @@ function populate_page(list){
         desc_amount_element = document.createElement("div")
         desc_amount_element.setAttribute("class", "col-6")
         // accept/reject col
-
-
     }
 }
 
-let request_list = get_all_pending_requests()
-console.log('here' + request_list)
+get_all_pending_requests()
 
 /**
  * -populate page

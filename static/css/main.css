@@ -48,3 +48,12 @@ td {
     text-shadow: black;
     text-align: center;
 }
+
+.table-of-requests {
+    color: white;
+    text-shadow: black;
+    background-color: green;
+    border-style: solid;
+    border-color: white;
+    padding: 10px;
+}
