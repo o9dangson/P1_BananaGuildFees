@@ -34,3 +34,12 @@ def step_page_location(context, location):
 @then(u'I will be shown the error message: "{err_msg}"')
 def step_error_message(context, err_msg):
     assert context.BG_Home.get_err_msg().text == err_msg
+
+# USER update/delete req > javascript: await fetch (/request/action) > update db (server) and return list of reqs for session['user_id']
+# > javascript: list of reqs > repopulates the html with list of reqs 
+
+# This route will return an updated list of reqs for whatever use the session is for
+# '/request/<action>'
+# def func(action, req_id):
+#...returns list of req
+# if action == ???: ?? on req_id

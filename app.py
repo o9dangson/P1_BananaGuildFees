@@ -2,9 +2,11 @@ import re
 from flask import Flask, render_template, request, redirect, session, url_for
 from service.logger_service import setup_logger_obj
 from controller.home_controller import get_homepage, get_homepage_err
-from controller.account_controller import get_account_page
+from controller.account_controller import get_account_page, get_logged_in_account_page
 from controller.manage_controller import get_manage_page
 import secrets
+
+from service.request_service import get_all_pending_requests
 
 
 class App:
@@ -25,7 +27,8 @@ class App:
             return get_account_page(request.form)
             
         elif request.method=='GET':
-            return redirect(url_for('home'))
+            # Check if session is logged in
+            return get_logged_in_account_page()
 
     @app.route('/account/manage', methods=['GET', 'POST'])
     def manage():
@@ -38,10 +41,20 @@ class App:
     def logout():
         if request.method=='GET':
             session.pop('user_id', None)
+            session.pop('is_manager', None)
 
         return redirect(url_for("home"))
         
-        
+    @app.route('/manage/all-requests')
+    def list_requests_manage():
+        if 'user_id' in session:  
+            if request.method == "GET" and session['is_manager']:
+                return get_all_pending_requests(session['user_id'])
+            else:
+                return redirect(url_for('account'))
+        else:
+            return redirect(url_for('home'))
+    
     #@app.route('/register', methods=['GET'])
     #def register():
     #    return get_register_page()

@@ -67,7 +67,6 @@ def select_all_req_by_manager_id(user_id):
         list_of_req = []
         while True:
             record = cur.fetchone()
-            print(record)
             if record == None:
                 break
             else:
