@@ -5,3 +5,13 @@ class Request:
         self.amount = amount
         self.desc = desc
         self.status = status    
+
+    def to_dict(self):
+        dictionary = {
+            'req_id': self.req_id,
+            'user_id': self.user_id,
+            'amount': float(self.amount),
+            'desc': self.desc,
+            'status': self.status
+        }
+        return dictionary
