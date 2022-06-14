@@ -3,6 +3,7 @@ from behave import given, when, then
 @given(u'I am on the landing page')
 def step_home(context):
     context.driver.get("http://localhost:5000/")
+    context.driver.fullscreen_window()
 
 
 @when(u'I put in my username: "{username}"')
@@ -26,6 +27,7 @@ def step_login(context):
 
 @when(u'I click on the logout button once')
 def step_logout(context):
+    context.driver.fullscreen_window()
     context.BG_Account.get_logout_button().click()
 
 @then(u'I should be on the home page')
@@ -35,6 +37,7 @@ def step_page_location(context):
 
 @then(u'I should see this "{option}"')
 def step_page_location(context, option):
+    context.driver.fullscreen_window()
     btn = context.BG_Account.get_specific_btn(option)
     assert btn.text == option
     context.BG_Account.get_logout_button().click()
@@ -42,6 +45,7 @@ def step_page_location(context, option):
 
 @then(u'I should see the relevant pages of "{option}"')
 def step_impl(context, option):
+    context.driver.fullscreen_window()
     btn = context.BG_Account.get_specific_btn(option)
     btn.click()
     if option == 'Home':
@@ -51,4 +55,5 @@ def step_impl(context, option):
     elif option == 'Log Out':
         assert context.driver.title == 'Home'
     if context.driver.title != 'Home':
+        context.driver.fullscreen_window()
         context.BG_Account.get_logout_button().click()
