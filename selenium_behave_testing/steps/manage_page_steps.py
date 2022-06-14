@@ -9,12 +9,10 @@ def step_on_account_page(context):
 
 @when(u'I click on the Manage Pending Request Page')
 def step_on_manage_request_page(context):
-    context.driver.fullscreen_window()
     context.BG_Account.get_manage_button().click()
 
 @then(u"I should see all requests that aren't mine")
 def step_all_pending_requests(context):
-    context.driver.fullscreen_window()
     userId = "2"
     if (len(context.BG_Manage.get_list_of_user_id_input())> 0):
         list_of_requests = context.BG_Manage.get_list_of_user_id_input()

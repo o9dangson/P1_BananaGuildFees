@@ -12,6 +12,7 @@ def before_all(context: Context):
     context.BG_Account = BG_Account(context.driver)
     context.BG_Manage = BG_Manage(context.driver)
     # We add an implicit wait to work with latency issues
+    context.driver.maximize_window()
     context.driver.implicitly_wait(2)
 
 def after_all(context: Context):

@@ -3,7 +3,6 @@ from behave import given, when, then
 @given(u'I am on the home page')
 def step_start_home(context):
     context.driver.get("http://localhost:5000/")
-    context.driver.fullscreen_window()
     assert context.driver.title == 'Home'
 
 
@@ -29,7 +28,6 @@ def step_submit_login(context):
 
 @then(u'I will be on the "{location}" page')
 def step_page_location(context, location):
-    context.driver.fullscreen_window()
     assert context.driver.title == location
     if location == 'Account':
         context.BG_Account.get_logout_button().click()
