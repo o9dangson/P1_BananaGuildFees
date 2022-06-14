@@ -22,6 +22,16 @@ function create_request_id_element(item){
     return req_id_element
 }
 
+function create_user_id_element(item) {
+    let user_id_element = document.createElement("input")
+    user_id_element.setAttribute("type", "hidden")
+    user_id_element.setAttribute("name", "user_id")
+    user_id_element.setAttribute("class", "user-id-request")
+    user_id_element.setAttribute("value", `${item.user_id}`)
+
+    return user_id_element
+}
+
 function create_request_amount_element(item){
     let req_amount_element = document.createElement("div")
     req_amount_element.setAttribute("class", "col-2")
@@ -93,6 +103,9 @@ function populate_page(list){
     
             // info for request id
             let req_id_ele = create_request_id_element(item)
+
+            //info for user id
+            let user_id_ele = create_user_id_element(item)
     
             // amount col
             let req_amount_ele = create_request_amount_element(item)
@@ -104,6 +117,7 @@ function populate_page(list){
             let req_acc_rej_ele = create_accept_reject_col_element(item)
     
             request_div.append(req_id_ele)
+            request_div.append(user_id_ele)
             request_div.append(req_amount_ele)
             request_div.append(req_desc_ele)
             request_div.append(req_acc_rej_ele)
