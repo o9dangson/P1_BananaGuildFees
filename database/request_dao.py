@@ -91,7 +91,7 @@ def update_req_by_req_id(req_id, var_Name, value):
 
     try:
         cur.execute(qry)
-        conn.commit()
+        #conn.commit()
         return True
     except(psycopg2.DatabaseError) as err:
         print(err)

@@ -49,11 +49,16 @@ td {
     text-align: center;
 }
 
-.table-of-requests {
+#table-of-requests {
     color: white;
     text-shadow: black;
     background-color: green;
     border-style: solid;
     border-color: white;
     padding: 10px;
+}
+
+.arButton {
+    margin-left: 5px;
+    margin-right: 5px;
 }

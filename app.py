@@ -6,7 +6,7 @@ from controller.account_controller import get_account_page, get_logged_in_accoun
 from controller.manage_controller import get_manage_page
 import secrets
 
-from service.request_service import get_all_pending_requests
+from service.request_service import get_all_pending_requests, update_request_status
 
 
 class App:
@@ -50,6 +50,17 @@ class App:
         if 'user_id' in session:  
             if request.method == "GET" and session['is_manager']:
                 return get_all_pending_requests(session['user_id'])
+            else:
+                return redirect(url_for('account'))
+        else:
+            return redirect(url_for('home'))
+
+    @app.route('/manage/request-update', methods=["POST"])
+    def update_requests_manage():
+        if 'user_id' in session:  
+            if request.method == "POST" and session['is_manager']:
+                jsonData = request.get_json()
+                return update_request_status(jsonData.get('req_id'), jsonData.get('status'))               
             else:
                 return redirect(url_for('account'))
         else:

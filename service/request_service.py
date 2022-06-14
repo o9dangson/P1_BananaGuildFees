@@ -11,7 +11,7 @@ def get_all_pending_requests(user_id):
 # status = "Accepted" or "Rejected"
 # Returns True if successful, else False
 def update_request_status(request_id, status):
-    attempt_update = update_req_by_req_id(request_id, 'status', status)
+    attempt_update = update_req_by_req_id(int(request_id), 'status', status)
     my_dict = create_dict('attempt_update', attempt_update)
     return json.dumps(my_dict)
 
