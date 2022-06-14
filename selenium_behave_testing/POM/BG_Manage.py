@@ -5,5 +5,5 @@ class BG_Manage():
     def __init__(self, driver: WebDriver):
         self.driver = driver
     
-    def get_list_of_requests(self):
-        return self.driver.find_elements(By.CLASS_NAME, "request")
+    def get_list_of_user_id_input(self):
+        return self.driver.find_elements(By.CLASS_NAME, "user-id-request")
