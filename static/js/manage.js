@@ -1,9 +1,4 @@
-function update_request_manage() {
-    let reqId = this.getAttribute("name")
-    let statusUpdate = this.getAttribute("value")
-    update_request(reqId, statusUpdate)
-}
-
+// DOM Manipulation
 function remove_element_by_request_id(req_id) {
     let input_element = document.querySelector(`input[value="${req_id}"]`)
     let request_delete_div = input_element.parentElement
@@ -52,26 +47,26 @@ function create_desc_col_element(item){
     return desc_amount_element
 }
 
+function create_manage_button(item, buttonValue) {
+    let button = document.createElement("input")
+    button.setAttribute("type", "button")
+    button.setAttribute("name", `${item.req_id}`)
+    button.setAttribute("value", buttonValue)
+    button.setAttribute("class", "btn btn-light arButton")
+
+    return button
+}
+
 function create_accept_reject_col_element(item) {
     let accept_reject_element = document.createElement("div")
     accept_reject_element.setAttribute("class", "col-4")
     
-    let accept_button = document.createElement("input")
-    accept_button.setAttribute("type", "button")
-    accept_button.setAttribute("name", `${item.req_id}`)
-    accept_button.setAttribute("value", "Accept")
-    accept_button.setAttribute("class", "btn btn-light arButton")
+    let accept_button = create_manage_button(item, "Accept")
     
+    let reject_button = create_manage_button(item, "Reject")
     
-    let reject_button = document.createElement("input")
-    reject_button.setAttribute("type", "button")
-    reject_button.setAttribute("name", `${item.req_id}`)
-    reject_button.setAttribute("value", "Reject")
-    reject_button.setAttribute("class", "btn btn-light arButton")
-    
-    //Add event listener
-    accept_button.addEventListener("click", update_request_manage)
-    reject_button.addEventListener("click", update_request_manage)
+    accept_button.addEventListener("click", update_request_send)
+    reject_button.addEventListener("click", update_request_send)
 
     accept_reject_element.append(accept_button)
     accept_reject_element.append(reject_button)
@@ -98,29 +93,28 @@ function populate_page(list){
     
     if (requests.length > 0) {
         for (let item of requests) {
+            let listOfElements = []
             let request_div = document.createElement("div")
             request_div.setAttribute("class", "row request")
     
             // info for request id
-            let req_id_ele = create_request_id_element(item)
+            listOfElements.push(create_request_id_element(item)) 
 
             //info for user id
-            let user_id_ele = create_user_id_element(item)
+            listOfElements.push(create_user_id_element(item))
     
             // amount col
-            let req_amount_ele = create_request_amount_element(item)
+            listOfElements.push(create_request_amount_element(item))
             
             // desc col
-            let req_desc_ele = create_desc_col_element(item)
+            listOfElements.push(create_desc_col_element(item))
     
             // accept/reject col
-            let req_acc_rej_ele = create_accept_reject_col_element(item)
+            listOfElements.push(create_accept_reject_col_element(item))
     
-            request_div.append(req_id_ele)
-            request_div.append(user_id_ele)
-            request_div.append(req_amount_ele)
-            request_div.append(req_desc_ele)
-            request_div.append(req_acc_rej_ele)
+            for (element of listOfElements) {
+                request_div.append(element)
+            }
     
             manage_requests_div.append(request_div)
         }
@@ -130,6 +124,15 @@ function populate_page(list){
     }  
 }
 
+
+
+function update_request_send() {
+    let reqId = this.getAttribute("name")
+    let statusUpdate = this.getAttribute("value")
+    update_request(reqId, statusUpdate)
+}
+
+// Async functions
 async function get_all_pending_requests(){
     try {
         const res = await fetch('/manage/all-requests')
@@ -138,7 +141,6 @@ async function get_all_pending_requests(){
             const message = `Couldn't obtain requests! An error occured: ${res.status}`
             throw message
         }
-        //console.log(JSON.stringify(pReqs))
         populate_page(pReqs)
     }
     catch(err) {

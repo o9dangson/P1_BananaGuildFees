@@ -1,12 +1,10 @@
 import re
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, request
 from service.logger_service import setup_logger_obj
-from controller.home_controller import get_homepage, get_homepage_err
-from controller.account_controller import get_account_page, get_logged_in_account_page
-from controller.manage_controller import get_manage_page
+from controller.home_controller import get_homepage, get_homepage_err, get_logout_page
+from controller.account_controller import get_account_page, get_logged_in_account_page, get_user_requests_list, post_cancel_request, post_create_request
+from controller.manage_controller import get_manage_page, get_manage_requests, post_manage_update
 import secrets
-
-from service.request_service import get_all_pending_requests, update_request_status
 
 
 class App:
@@ -25,46 +23,36 @@ class App:
     def account():
         if request.method=='POST':
             return get_account_page(request.form)
-            
         elif request.method=='GET':
-            # Check if session is logged in
             return get_logged_in_account_page()
 
-    @app.route('/account/manage', methods=['GET', 'POST'])
+    @app.route('/account/request', methods=['GET'])
+    def request():
+        return get_user_requests_list()
+
+    @app.route('/account/cancel', methods=['POST'])
+    def cancel_request():
+        return post_cancel_request(request)
+
+    @app.route('/account/create', methods=['POST'])
+    def create_request():
+        return post_create_request(request)
+
+    @app.route('/account/manage', methods=['GET'])
     def manage():
-        if request.method=='GET':
-            return get_manage_page()
-        elif request.method=='POST':
-            return get_manage_page(request.form)
+        return get_manage_page(request)
         
     @app.route('/logout', methods=["GET"])
     def logout():
-        if request.method=='GET':
-            session.pop('user_id', None)
-            session.pop('is_manager', None)
-
-        return redirect(url_for("home"))
+        return get_logout_page(request)
         
-    @app.route('/manage/all-requests')
+    @app.route('/manage/all-requests', methods=['GET'])
     def list_requests_manage():
-        if 'user_id' in session:  
-            if request.method == "GET" and session['is_manager']:
-                return get_all_pending_requests(session['user_id'])
-            else:
-                return redirect(url_for('account'))
-        else:
-            return redirect(url_for('home'))
+        return get_manage_requests(request)
 
     @app.route('/manage/request-update', methods=["POST"])
     def update_requests_manage():
-        if 'user_id' in session:  
-            if request.method == "POST" and session['is_manager']:
-                jsonData = request.get_json()
-                return update_request_status(jsonData.get('req_id'), jsonData.get('status'))               
-            else:
-                return redirect(url_for('account'))
-        else:
-            return redirect(url_for('home'))
+        return post_manage_update(request)
     
     #@app.route('/register', methods=['GET'])
     #def register():

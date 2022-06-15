@@ -20,3 +20,9 @@ def get_homepage_err():
     
 def check_not_in_session():
     return not 'user_id' in session
+
+def get_logout_page(request):
+    if request.method=='GET':
+            session.pop('user_id', None)
+            session.pop('is_manager', None)
+    return redirect(url_for("home"))

@@ -1,3 +1,4 @@
+from flask import session
 from database.request_dao import insert_user_request, select_all_req_by_user_id, select_all_req_by_manager_id, update_req_by_req_id, remove_req_by_req_id
 import json
 
@@ -32,7 +33,7 @@ def get_user_requests(user_id):
 # Returns id of inserted request
 def create_user_request(user_id, amount, desc):
     new_req_id = insert_user_request(user_id, amount, desc)
-    my_dict = create_dict('new_req_id', new_req_id)
+    my_dict = {'req_id': new_req_id, 'user_id': session['user_id']}
     return json.dumps(my_dict)
 
 def create_dict(varName, var):
