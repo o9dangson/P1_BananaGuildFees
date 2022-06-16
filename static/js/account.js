@@ -1,6 +1,8 @@
 // DOM Manipulation
 function remove_element_by_request_id(req_id) {
     let input_element = document.querySelector(`input[value="${req_id}"]`)
+    let amount_element = document.getElementById(`request-amount-${req_id}`)
+    update_total('sub', amount_element.innerHTML)
     let request_delete_div = input_element.parentElement
     request_delete_div.remove()
     if (!check_for_empty()) {
@@ -31,6 +33,7 @@ function create_request_amount_element(item){
     let req_amount_element = document.createElement("div")
     req_amount_element.setAttribute("class", "col-2")
     let req_amount_p = document.createElement("p")
+    req_amount_p.setAttribute("id", `request-amount-${item.req_id}`)
     req_amount_p.innerHTML = `${item.amount} G`
     req_amount_element.append(req_amount_p)
 
@@ -110,9 +113,11 @@ function create_pending_request_row(item){
     }
     
     pending_requests_div.append(request_div)
+
+    let amount_element = document.getElementById(`request-amount-${item.req_id}`)
+    update_total('add', amount_element.innerHTML)
 }
 
-//Needs adjustment
 function populate_page(list){
     let create_btn = document.getElementById("create-button")
     create_btn.addEventListener("click", create_request_send)
@@ -172,6 +177,31 @@ function populate_page(list){
         create_empty_condition("account-pending-requests")
         create_empty_condition("account-past-requests")
     }  
+
+    initial_total(requests)
+}
+
+function initial_total(requests){
+    let total_element = document.getElementById("account-total-requests")
+    let count = 0
+    for(req of requests){
+        count += req.amount
+    }
+    total_element.innerHTML = `${count} G`
+}
+
+function update_total(type, amount){
+    let total_element = document.getElementById("account-total-requests")
+    let count = total_element.innerHTML
+    count = parseInt(count.substring(0, count.length-2))
+    amount = parseInt(amount)
+    if (type == 'add'){
+        count+= amount
+    }
+    else if (type == 'sub'){
+        count-= amount
+    }
+    total_element.innerHTML = `${count} G`
 }
 
 function update_err(msg){
@@ -218,7 +248,6 @@ function hideCollapse() {
 
 
 // Async functions
-//Needs adjustment
 async function get_all_requests(){
     try {
         const res = await fetch('/account/request')
@@ -234,7 +263,6 @@ async function get_all_requests(){
     }     
 }
 
-//Needs adjustment
 async function cancel_request(reqId) {
     const response = await fetch('/account/cancel', {
         headers: {
@@ -259,7 +287,6 @@ async function cancel_request(reqId) {
 }
 
 async function create_request(amount, desc){
-    //send server request to server.
     const response = await fetch('/account/create', {
         headers: {
             'Content-Type': 'application/json'
