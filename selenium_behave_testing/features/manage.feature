@@ -8,3 +8,9 @@ Feature: Managing Requests
         When I click on the Manage Pending Request Page
         Then I should see all requests that aren't mine
 
+    Scenario: Test if element is removed from page after Accept
+        Given I am on the Account page
+        When I click on the Manage Pending Request Page
+        When I click the Accept Button
+        Then It should no longer be on my pending requests
+

@@ -21,3 +21,15 @@ def step_all_pending_requests(context):
     else:
         assert True
     context.BG_Account.get_logout_button().click()
+
+@when (u'I click the Accept Button')
+def step_click_on_accept_request(context):
+    if (len(context.BG_Manage.get_list_of_acc_rej_btn())> 0):
+        list_of_buttons = context.BG_Manage.get_list_of_acc_rej_btn()
+        for button in list_of_buttons:
+            button.click()
+            break
+
+@then (u'It should no longer be on my pending requests')
+def step_check_to_see_if_pending_removed(context):
+    pass
