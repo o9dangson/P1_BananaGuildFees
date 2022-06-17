@@ -52,9 +52,9 @@
 - `TC_13`:user creating requests
   - valid input, invalid input
 - `TC_14`:manager manages requests
-  - accept, reject, non-existing
+  - accept, reject
 - `TC_15`:user cancels pending request
-  - existing, non-existing
+  - existing
 
 ## **Logging**
 

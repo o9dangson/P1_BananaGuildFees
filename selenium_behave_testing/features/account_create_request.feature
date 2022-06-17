@@ -1,6 +1,7 @@
 Feature: Create Request 
     As a user, I am able to create a new reimbursement request
 
+    # TC_07 / TC_06
     Scenario: Successful request creation
         Given I am logged in as an adventerer
         When I click on the add request button
@@ -9,8 +10,9 @@ Feature: Create Request
         When I click the create button
         Then My request should show up in pending requests
 
+    # TC_06
     Scenario Outline: Failing request creation
-        Given I am logged in as an adventerer
+        Given I am logged in as a guild master
         When I click on the add request button
         When I input an "<amount>"
         When I input a "<description>"

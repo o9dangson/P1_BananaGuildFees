@@ -23,3 +23,12 @@ class BGUserAccount:
 
     def get_hidden_inputs_by_req_id(self):
         return self.driver.find_elements(By.NAME, "req_id")
+
+    def get_total_amount(self):
+        return self.driver.find_element(By.ID, "account-total-requests")
+
+    def get_amount_elements(self):
+        return self.driver.find_elements(By.CLASS_NAME, "request-amount")
+
+    def get_cancel_buttons(self):
+        return self.driver.find_elements(By.CLASS_NAME, "cancel-btn")

@@ -71,3 +71,7 @@ access: session['user_id']
 {{ endblock }}
 
 print(locate_with(By.CLASS_NAME, "login-warning").below({By.TAG_NAME: "p"}))
+
+
+COVERAGE LIBRARY
+https://coverage.readthedocs.io/en/6.4.1/

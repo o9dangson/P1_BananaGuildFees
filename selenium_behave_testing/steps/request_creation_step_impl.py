@@ -1,10 +1,8 @@
-import time
 from behave import given, when, then
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-
+import time
 
 @given(u'I am logged in as an adventerer')
 def step_logged_in_as_adv(context):
@@ -41,12 +39,10 @@ def step_click_create(context):
 
 @then(u'My request should show up in pending requests')
 def step_check_pending_requests(context):
-    WebDriverWait(context.driver, 5)
+    time.sleep(3)
     list_requests_len = len(context.BG_User_Account.get_hidden_inputs_by_req_id())
-    # assert list_requests_len > context.size_of_req_list
-    assert True
+    assert list_requests_len > context.size_of_req_list
     context.BG_Account.get_logout_button().click()
-
 
 @when(u'I input an "{amount}"')
 def step_input_variable_amount(context, amount):
@@ -55,6 +51,12 @@ def step_input_variable_amount(context, amount):
     else:
         context.BG_User_Account.get_amount_input().send_keys(amount)
 
+@given(u'I am logged in as a guild master')
+def step_logged_in_as_gm(context):
+    context.driver.get("http://localhost:5000/")
+    context.BG_Home.get_username_form().send_keys("manager")
+    context.BG_Home.get_password_form().send_keys("Password123")
+    context.BG_Home.get_login_btn().click()
 
 @when(u'I input a "{description}"')
 def step_input_variable_desc(context, description):

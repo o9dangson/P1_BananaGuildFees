@@ -26,9 +26,12 @@ def cancel_pending_request(request_id):
 def get_user_requests(user_id):
     list_of_req_obj = select_all_req_by_user_id(user_id)
     json_list = []
-    for obj in list_of_req_obj:
-        json_list.append(obj.to_dict())
-    return json.dumps({'json_list': json_list})
+    if list_of_req_obj is not None:
+        for obj in list_of_req_obj:
+            json_list.append(obj.to_dict())
+        return json.dumps({'json_list': json_list})
+    else:
+        return json.dumps({'json_list': json_list})
 
 # Returns id of inserted request
 def create_user_request(user_id, amount, desc):

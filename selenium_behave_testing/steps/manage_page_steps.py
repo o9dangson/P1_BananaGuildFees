@@ -1,4 +1,8 @@
+import time
 from behave import given, when, then
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 @given(u'I am on the Account page')
 def step_on_account_page(context):
@@ -24,7 +28,10 @@ def step_all_pending_requests(context):
 
 @when (u'I click the Accept Button')
 def step_click_on_accept_request(context):
+    wait = WebDriverWait(context.driver, 10)
+    element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'user-id-request')))
     if (len(context.BG_Manage.get_list_of_acc_rej_btn())> 0):
+        context.size_of_pending_list = len(context.BG_Manage.get_list_of_acc_rej_btn())
         list_of_buttons = context.BG_Manage.get_list_of_acc_rej_btn()
         for button in list_of_buttons:
             button.click()
@@ -32,5 +39,7 @@ def step_click_on_accept_request(context):
 
 @then (u'It should no longer be on my pending requests')
 def step_check_to_see_if_pending_removed(context):
-    assert True
+    time.sleep(3)
+    curr_len_of_pending = len(context.BG_Manage.get_list_of_acc_rej_btn())
+    assert curr_len_of_pending < context.size_of_pending_list
     context.BG_Account.get_logout_button().click()

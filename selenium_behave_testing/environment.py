@@ -23,8 +23,8 @@ def before_scenario(context: Context, scenario: Scenario):
     if s.name == "Successful request creation":
         context.size_of_req_list = 0
 
-    if s.name == "Test if element is removed from page after Accept":
-        context.req_id = 0
+    if s.name == "Test if element is removed from page after Accept" or s.name == "Makes good request":
+        context.size_of_pending_list = 0
 
 def after_all(context: Context):
     # This will make sure at the end of a behave test all the drivers are closed

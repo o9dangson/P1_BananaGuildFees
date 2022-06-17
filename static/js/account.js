@@ -33,6 +33,7 @@ function create_request_amount_element(item){
     let req_amount_element = document.createElement("div")
     req_amount_element.setAttribute("class", "col-2")
     let req_amount_p = document.createElement("p")
+    req_amount_p.setAttribute("class", "request-amount")
     req_amount_p.setAttribute("id", `request-amount-${item.req_id}`)
     req_amount_p.innerHTML = `${item.amount} G`
     req_amount_element.append(req_amount_p)
@@ -55,7 +56,7 @@ function create_manage_button(item, buttonValue) {
     button.setAttribute("type", "button")
     button.setAttribute("name", `${item.req_id}`)
     button.setAttribute("value", buttonValue)
-    button.setAttribute("class", "btn btn-light")
+    button.setAttribute("class", "btn btn-light cancel-btn")
 
     return button
 }
