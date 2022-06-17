@@ -32,4 +32,5 @@ def step_click_on_accept_request(context):
 
 @then (u'It should no longer be on my pending requests')
 def step_check_to_see_if_pending_removed(context):
-    pass
+    assert True
+    context.BG_Account.get_logout_button().click()
