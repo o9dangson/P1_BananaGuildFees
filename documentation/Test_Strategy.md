@@ -23,7 +23,7 @@ This document will be reviewed by all developing team members at regular interva
 - `Selenium/Behave` are used here to verify features meet the requirements of the client and that various code works as intended as a whole. User stories will be used to create scenarios to be run in behave and it will be automated by selenium. 
 
 ### **Acceptance**
-- During presentation with the client, team members will confirm that the requested features satisfy all client demands and all system behaviors are normal.
+- The acceptance criteria that will be enforced for testing will be using behave. If all the steps in a feature file pass then the user story implementation will be considered complete.
 
 ## **Test Environment**
 

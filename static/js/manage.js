@@ -174,8 +174,3 @@ async function update_request(reqId, statusUpdate) {
 
 
 get_all_pending_requests()
-
-/**
- * -populate page
- *      -add event listeners to each button
- */
