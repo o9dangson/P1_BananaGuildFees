@@ -76,4 +76,6 @@ In order to run Banana Guild Fees you must have the follwing technology installe
 
 [RTM](https://docs.google.com/spreadsheets/d/14Z-w8EPUCjwkrnTl1y7GtZ0ek5Ullm5OVsrX_f4RUJk/edit?usp=sharing)
 
+[User Stories](https://trello.com/b/2JVaS5aB/kanban-p1)
+
 [All Other Test Documentation](/documentation)
